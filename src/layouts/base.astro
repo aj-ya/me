@@ -1,0 +1,64 @@
+---
+import { MdEmail } from "react-icons/md";
+import { AiFillGithub, AiOutlineTwitter } from "react-icons/ai";
+import { FaSteamSymbol } from "react-icons/fa";
+import ThemeToggle from "../components/ThemeToggle";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap"
+      rel="stylesheet"
+    />
+    <script is:inline>
+      // It's best to inline this in `head` to avoid FOUC (flash of unstyled content) when changing pages or themes
+      if (
+        localStorage.getItem("color-theme") === "dark" ||
+        (!("color-theme" in localStorage) &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+    </script>
+    <style lang="scss" is:global>
+      html,
+      body {
+        font-family: "Poppins", system-ui, sans-serif;
+        font-size: 14px;
+      }
+      * {
+        box-sizing: border-box;
+      }
+    </style>
+  </head>
+  <body
+    class="grid grid-rows-layout w-screen h-screen text-[#2F2F2F] bg-[#E4DFDA] dark:bg-black"
+  >
+    <header
+      class="text-[#2F2F2F] dark:text-[#E4DFDA] flex justify-center items-center"
+    >
+      <!-- <div class="text-2xl font-bold text-[#4357AD]">Header</div> -->
+      <ThemeToggle />
+    </header>
+    <main class="text-[#2F2F2F] dark:text-white p-5">
+      <slot />
+    </main>
+    <footer
+      class="flex items-center justify-center text-[#4357AD] dark:text-white gap-3"
+    >
+      <MdEmail size={24} />
+      <AiFillGithub size={24} />
+      <AiOutlineTwitter size={24} />
+      <FaSteamSymbol size={24} />
+    </footer>
+  </body>
+</html>
