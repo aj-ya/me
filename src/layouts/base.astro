@@ -1,11 +1,10 @@
 ---
-import { MdEmail } from "react-icons/md";
-import { AiFillGithub, AiOutlineTwitter } from "react-icons/ai";
-import { FaSteamSymbol } from "react-icons/fa";
-import ThemeToggle from "../components/ThemeToggle";
+import Header from "../components/Header";
+import Footer from "../components/Footer.astro";
+import ScrollToTop from "../components/ScrollToTop.astro";
 ---
 
-<html lang="en">
+<html lang="en" id="top">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
@@ -25,6 +24,7 @@ import ThemeToggle from "../components/ThemeToggle";
           window.matchMedia("(prefers-color-scheme: dark)").matches)
       ) {
         document.documentElement.classList.add("dark");
+        console.log("dark");
       } else {
         document.documentElement.classList.remove("dark");
       }
@@ -34,31 +34,41 @@ import ThemeToggle from "../components/ThemeToggle";
       body {
         font-family: "Poppins", system-ui, sans-serif;
         font-size: 14px;
+        scrollbar-color: #999 #333;
+        scrollbar-width: thin;
       }
       * {
         box-sizing: border-box;
+        transition: ease 200ms;
+      }
+
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 10px;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #999;
+        border-radius: 50px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #333;
+      }
+      html {
+        scroll-behavior: smooth;
       }
     </style>
   </head>
   <body
-    class="grid grid-rows-layout w-screen h-screen text-[#2F2F2F] bg-[#E4DFDA] dark:bg-black"
+    class="grid grid-rows-[auto,1fr,50px] w-screen h-screen text-jet bg-nyanza dark:bg-black overflow-x-hidden overflow-y-auto"
   >
-    <header
-      class="text-[#2F2F2F] dark:text-[#E4DFDA] flex justify-center items-center"
-    >
-      <!-- <div class="text-2xl font-bold text-[#4357AD]">Header</div> -->
-      <ThemeToggle />
-    </header>
-    <main class="text-[#2F2F2F] dark:text-white p-5">
-      <slot />
+    <Header client:load />
+
+    <main class="text-jet dark:text-white flex justify-center p-5">
+      <section class="w-content">
+        <slot />
+      </section>
     </main>
-    <footer
-      class="flex items-center justify-center text-[#4357AD] dark:text-white gap-3"
-    >
-      <MdEmail size={24} />
-      <AiFillGithub size={24} />
-      <AiOutlineTwitter size={24} />
-      <FaSteamSymbol size={24} />
-    </footer>
+    <Footer />
+    <ScrollToTop />
   </body>
 </html>
